@@ -5,12 +5,6 @@ SIZE = 20
 WINDOWWIDTH = WINDOWHEIGHT = 20*SIZE
 FPS = 10
 
-def drawText(text, font, surface, x, y):
-    textobj = font.render(text, 1, TEXTCOLOUR)
-    textrect = textobj.get_rect()
-    textrect.topleft = (x, y)
-    surface.blit(textobj, textrect)
-
 def terminate():
 	pygame.quit()
 	sys.exit()
@@ -41,20 +35,15 @@ RED = (233, 86, 78)
 GREEN = (0, 255, 0)
 BLUE = (78, 174, 233)
 TEXTCOLOUR = BLACK
-font = pygame.font.SysFont(None, 48)
 
 pygame.init()
 mainClock = pygame.time.Clock()
 windowSurface = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT), 0, 32)
 pygame.display.set_caption('S N A K E')
-
 windowSurface.fill(WHITE)
-drawText('S N A K E', font, windowSurface, (WINDOWWIDTH/3), (WINDOWHEIGHT/3))
-drawText('Press a key to start.', font, windowSurface, (WINDOWWIDTH/3) - 30, (WINDOWHEIGHT/3) + 50)
 pygame.display.update()
-waitForPlayerToPressKey()
 
-pygame.display.update()
+pixArray = pygame.PixelArray(windowSurface)
 
 topScore = 0
 #overall game loop, for topscore purposes
@@ -68,7 +57,7 @@ while True:
 	for i in snake:
 		changeColour(i[0], i[1], BLUE)
 	x, y = getFoodLocation()
-	pixArray = pygame.PixelArray(windowSurface)
+	
 	#game loop which runs every game
 	while True:
 		#gets the user input
