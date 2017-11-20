@@ -9,13 +9,13 @@ def terminate():
 	pygame.quit()
 	sys.exit()
 
-def changeColour(x, y, colour):				#Changes the colour of an area 20x*20 square pixels
+def changeColour(x, y, colour):		#Changes the colour of an area 20*20 square pixels
 	for i in range(x*SIZE, (x+1)*SIZE):
 		for j in range(y*SIZE, (y+1)*SIZE):
 			pixArray[i][j] = colour
 	return None
 
-def getFoodLocation():						#the code responsible for spawning new food everytime the snake eats some
+def getFoodLocation():			#the code responsible for spawning new food everytime the snake eats some
 	x = random.randint(0, 19)
 	y = random.randint(0, 19)
 	while(pixArray[x*SIZE][y*SIZE] != windowSurface.map_rgb(WHITE)):
@@ -91,7 +91,7 @@ while True:
 			elif snake[i][2] == UP:
 				snake[i][1] -= 1
 		
-		swapper = orig #very, very important line. removing this line breaks the movement of the snake
+		swapper = orig #very, very important. removing this breaks the movement of the snake
 		
 
 		#These two if blocks are responsible for ending the game
