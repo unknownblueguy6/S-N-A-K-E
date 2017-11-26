@@ -2,7 +2,8 @@ import pygame, sys, random
 from pygame.locals import *
 
 SIZE = 20
-WINDOWWIDTH = WINDOWHEIGHT = 20*SIZE
+WINDOWWIDTH = 20*SIZE
+WINDOWHEIGHT = 21*SIZE + 1
 FPS = 10
 
 def terminate():
@@ -24,6 +25,12 @@ def getFoodLocation():			#the code responsible for spawning new food everytime t
 	changeColour (x, y, RED)
 	return x, y
 
+def drawText(text, font, surface, x, y):
+    textobj = font.render(text, 1, TEXTCOLOUR)
+    textrect = textobj.get_rect()
+    textrect.bottomright = (x, y)
+    surface.blit(textobj, textrect)
+
 UP = "U"
 DOWN = "D"
 LEFT =  "L"
@@ -41,17 +48,17 @@ mainClock = pygame.time.Clock()
 windowSurface = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT), 0, 32)
 pygame.display.set_caption('S N A K E')
 windowSurface.fill(WHITE)
+font = pygame.font.SysFont("Consolas", 29)
+
 pygame.display.update()
 
 pixArray = pygame.PixelArray(windowSurface)
 
-topScore = 0
-#overall game loop, for topscore purposes
+topScore = '000'
+#overall game loop
 while True:
-
 	#reset the game 
 	snake = [[2, 0, RIGHT], [1, 0, RIGHT], [0, 0, RIGHT]]
-	score = 0
 	swapper = ''
 	windowSurface.fill(WHITE)
 	for i in snake:
@@ -61,6 +68,7 @@ while True:
 	#game loop which runs every game
 	while True:
 		#gets the user input
+		pixArray = pygame.PixelArray(windowSurface)
 		for event in pygame.event.get():
 			if event.type == QUIT:
 				terminate()
@@ -91,7 +99,7 @@ while True:
 			elif snake[i][2] == UP:
 				snake[i][1] -= 1
 		
-		swapper = orig #very, very important. removing this breaks the movement of the snake
+		swapper = orig #very, very important line. removing this line breaks the movement of the snake
 		
 
 		#These two if blocks are responsible for ending the game
@@ -145,5 +153,21 @@ while True:
 		for i in snake:
 			changeColour(i[0], i[1], BLUE)
 		changeColour(x, y, RED)
+		for i in range(400):
+			pixArray[i][400] = BLACK
+		
+		del pixArray
+		score = str(len(snake))
+		while len(score) < 3:
+			score = '0' + score
+		while len(topScore) < 3:
+			topScore = '0' + topScore
+		if int(score) > int(topScore):
+			topScore = score
+		drawText(score, font, windowSurface, 399, 420)
+		drawText(topScore, font, windowSurface, 170, 420)
+		drawText("SCORE : ", font, windowSurface, 369, 420)
+		drawText("HIGH SCORE : ", font, windowSurface, 140, 420)
+
 		pygame.display.update()
 		mainClock.tick(FPS)
