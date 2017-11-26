@@ -10,13 +10,13 @@ def terminate():
 	pygame.quit()
 	sys.exit()
 
-def changeColour(x, y, colour):				#Changes the colour of an area 20x*20 square pixels
+def changeColour(x, y, colour):		#Changes the colour of an area 20*20 square pixels
 	for i in range(x*SIZE, (x+1)*SIZE):
 		for j in range(y*SIZE, (y+1)*SIZE):
 			pixArray[i][j] = colour
 	return None
 
-def getFoodLocation():						#the code responsible for spawning new food everytime the snake eats some
+def getFoodLocation():			#the code responsible for spawning new food everytime the snake eats some
 	x = random.randint(0, 19)
 	y = random.randint(0, 19)
 	while(pixArray[x*SIZE][y*SIZE] != windowSurface.map_rgb(WHITE)):
@@ -51,15 +51,12 @@ windowSurface.fill(WHITE)
 font = pygame.font.SysFont("Consolas", 29)
 
 pygame.display.update()
-drawText("SCORE : ", font, windowSurface, 359, 420)
-drawText("HIGH SCORE : ", font, windowSurface, 40, 420)
 
 pixArray = pygame.PixelArray(windowSurface)
 
 topScore = '000'
-#overall game loop, for topscore purposes
+#overall game loop
 while True:
-
 	#reset the game 
 	snake = [[2, 0, RIGHT], [1, 0, RIGHT], [0, 0, RIGHT]]
 	swapper = ''
