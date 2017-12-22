@@ -48,7 +48,7 @@ mainClock = pygame.time.Clock()
 windowSurface = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT), 0, 32)
 pygame.display.set_caption('S N A K E')
 windowSurface.fill(WHITE)
-font = pygame.font.SysFont("Consolas", 29)
+font = pygame.font.SysFont("Consolas", 19)
 
 pygame.display.update()
 
