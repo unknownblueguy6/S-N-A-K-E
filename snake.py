@@ -1,4 +1,4 @@
-import pygame, sys, random
+import pygame, sys, random, platform
 from pygame.locals import *
 
 SIZE = 20
@@ -48,7 +48,12 @@ mainClock = pygame.time.Clock()
 windowSurface = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT), 0, 32)
 pygame.display.set_caption('S N A K E')
 windowSurface.fill(WHITE)
-font = pygame.font.SysFont("Consolas", 19)
+
+if(platform.system() == 'Windows'):
+	font = pygame.font.SysFont("Consolas", 19)
+
+elif(platform.system() == 'Linux'):
+	font = pygame.font.SysFont("Ubuntu", 19)
 
 pygame.display.update()
 
@@ -98,13 +103,20 @@ while True:
 				snake[i][1] += 1
 			elif snake[i][2] == UP:
 				snake[i][1] -= 1
-		
+			if snake[i][0] > 19:
+				snake[i][0] = 0
+			elif snake[i][0] < 0:
+				snake[i][0] = 19
+			elif snake[i][1] < 0:
+				snake[i][1] = 19;
+			elif snake[i][1] > 19:
+				snake[i][1] = 0
+
 		swapper = orig #very, very important line. removing this line breaks the movement of the snake
 		
-
-		#These two if blocks are responsible for ending the game
-		if snake[0][0] > 19 or snake[0][0] < 0 or snake[0][1] < 0 or snake[0][1] > 19:
-		 	break
+		
+		
+		#Game end condition
 		if [snake[0][0], snake[0][1], UP] in snake[1:] or [snake[0][0], snake[0][1], DOWN] in snake[1:] or [snake[0][0], snake[0][1], RIGHT] in snake[1:] or [snake[0][0], snake[0][1], LEFT] in snake[1:]: 
 		 	break
 		
