@@ -84,7 +84,7 @@ while True:
 					swapper = RIGHT
 				elif event.key == K_DOWN or event.key == ord('s'):
 					swapper = DOWN
-				elif event.key == K_UP or event.key == ord('W'):
+				elif event.key == K_UP or event.key == ord('w'):
 					swapper = UP
 			orig = swapper
 		
